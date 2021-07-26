@@ -1,17 +1,25 @@
 package main
 
 import (
-	"github.com/Dark15/blogo/models"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"blogo/global"
+	"blogo/setup"
+	"database/sql"
+	"fmt"
 )
 
-func main() {
-	dsn := "root:rootroot@tcp(localhost:3306)/blog?charset=utf8mb4&parseTime=True&loc=Local"
-	db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	err := db.AutoMigrate(&models.Account{}, &models.Article{}, &models.Tag{}, &models.Friend{})
+func init() {
+	global.VIPER = setup.Viper()
+	global.GORM = setup.Gorm()
+}
 
-	if err != nil {
-		return
-	}
+func main() {
+	db, _ := global.GORM.DB()
+
+	defer func(db *sql.DB) {
+		err := db.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(db)
+
 }

@@ -1,0 +1,8 @@
+[mysql]
+user = "root"
+password = "$MYSQL_PASSWD"
+database = "blog"
+host = "localhost:3306"
+charset = "utf8mb4"
+max-idle-connections = 10
+max-open-connections = 100
