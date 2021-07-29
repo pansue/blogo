@@ -78,6 +78,7 @@ POST /api/system/article/listArticles
   | `totalCount` | `number`    | 文章总数    |
 
 - article
+  
   | Field            | Type       | Description                               |
   | ---------------- | ---------- | ----------------------------------------- |
   | `articleId`      | `number`   | 文章ID                                    |
@@ -140,6 +141,7 @@ POST /api/system/article/searchArticle
 ```
 
 - 请求
+  
   | Field     | Type     | Description                      | Require |
   | --------- | -------- | -------------------------------- | ------- |
   | `keyword` | `string` | 搜索关键字（接受标题和文章内容） | `true`  |
@@ -151,6 +153,7 @@ POST /api/system/article/searchArticle
   | `articles` | `article[]` | 文章列表    |
 
 - article
+  
   | Field            | Type       | Description                               |
   | ---------------- | ---------- | ----------------------------------------- |
   | `articleId`      | `number`   | 文章ID                                    |
@@ -252,6 +255,7 @@ POST /api/system/article/listArticleTags
 ```
 
 - 请求
+  
   | Field    | Type     | Description            | Require |
   | :------- | :------- | :--------------------- | ------- |
   | `offset` | `number` | 分页偏移量             | `true`  |
@@ -279,12 +283,14 @@ POST /api/system/friend/listFriends
 ```
 
 - 请求
+  
   | Field    | Type     | Description            | Require |
   | :------- | :------- | :--------------------- | ------- |
   | `offset` | `number` | 分页偏移量             | `true`  |
   | `size`   | `number` | 期望分页查询记录的数量 | `true`  |
 
 - 响应
+  
   | Field        | Type       | Description |
   | ------------ | ---------- | ----------- |
   | `friends`    | `friend[]` | 友链列表    |
@@ -401,6 +407,7 @@ POST /api/blog/article/searchArticle
 ```
 
 - 请求
+  
   | Field     | Type     | Description                      | Require |
   | --------- | -------- | -------------------------------- | ------- |
   | `keyword` | `string` | 搜索关键字（接受标题和文章内容） | `true`  |
@@ -429,6 +436,7 @@ POST /api/blog/article/listArticleTags
 ```
 
 - 请求
+  
   | Field    | Type     | Description            | Require |
   | :------- | :------- | :--------------------- | ------- |
   | `offset` | `number` | 分页偏移量             | `true`  |
@@ -456,12 +464,14 @@ POST /api/blog/friend/listFriends
 ```
 
 - 请求
+  
   | Field    | Type     | Description            | Require |
   | :------- | :------- | :--------------------- | ------- |
   | `offset` | `number` | 分页偏移量             | `true`  |
   | `size`   | `number` | 期望分页查询记录的数量 | `true`  |
 
 - 响应
+  
   | Field        | Type       | Description |
   | ------------ | ---------- | ----------- |
   | `friends`    | `friend[]` | 友链列表    |
