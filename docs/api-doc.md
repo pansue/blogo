@@ -44,8 +44,8 @@ POST /api/system/auth/login
 
   | Field          | Type     | Description              |
   | -------------- | -------- | ------------------------ |
-  | `access_token` | `string` | jwt令牌                  |
-  | `expiry_time`  | `number` | 令牌过期时间，unix时间戳 |
+  | `accessToken` | `string` | jwt令牌                  |
+  | `expiryTime`  | `number` | 令牌过期时间，unix时间戳 |
   | `user`         | `object` | 账号信息（待定）         |
 
 - 错误信息
