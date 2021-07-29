@@ -13,5 +13,5 @@ type Article struct {
 	CoverImageURL  string `gorm:"type:VARCHAR(255) NOT NULL"`
 	Views          uint   `gorm:"type:INT UNSIGNED NOT NULL;default:0"`
 	EffectiveViews uint   `gorm:"type:INT UNSIGNED NOT NULL;default:0"`
-	Tags           []Tag  `gorm:"many2many:article_tags"`
+	Tags           []Tag  `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:NO ACTION;"`
 }
