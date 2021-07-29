@@ -88,7 +88,7 @@ POST /api/system/article/listArticles
   | `tags`           | `string[]` | 标签列表                                  |
   | `createdTime`    | `number`   | 文章创建时间                              |
   | `updatedTime`    | `number`   | 文章最后更新时间                          |
-  | `deletedTime`    | `number`   | 文章删除时间错误信息                      |
+  | `deletedTime`    | `number`   | 文章删除时间                              |
 
 #### 获取文章详情
 
@@ -149,6 +149,19 @@ POST /api/system/article/searchArticle
   | Field      | Type        | Description |
   | ---------- | ----------- | ----------- |
   | `articles` | `article[]` | 文章列表    |
+
+- article
+  | Field            | Type       | Description                               |
+  | ---------------- | ---------- | ----------------------------------------- |
+  | `articleId`      | `number`   | 文章ID                                    |
+  | `title`          | `string`   | 文章标题                                  |
+  | `state`          | `number`   | 文章状态（0为草稿，1为已发布，2为已删除） |
+  | `views`          | `number`   | 阅读量                                    |
+  | `effectiveViews` | `number`   | 有效阅读量（待讨论）                      |
+  | `tags`           | `string[]` | 标签列表                                  |
+  | `createdTime`    | `number`   | 文章创建时间                              |
+  | `updatedTime`    | `number`   | 文章最后更新时间                          |
+  | `deletedTime`    | `number`   | 文章删除时间                              |
 
 #### 保存文章
 
@@ -300,3 +313,166 @@ POST /api/system/friend/deleteFriend
   | `friendId` | `number` | 友链ID      | `true`  |
 
 - 无响应
+
+## 博客主页
+
+### 获取文章列表
+
+```http
+POST /api/blog/article/listArticles
+```
+
+- 请求
+
+  | Field    | Type     | Description            | Require |
+  | :------- | :------- | :--------------------- | ------- |
+  | `offset` | `number` | 分页偏移量             | `true`  |
+  | `size`   | `number` | 期望分页查询记录的数量 | `true`  |
+
+- 响应
+
+  | Field        | Type        | Description |
+  | ------------ | ----------- | ----------- |
+  | `articles`   | `article[]` | 文章列表    |
+  | `totalCount` | `number`    | 文章总数    |
+
+- article
+
+  | Field         | Type           | Description  |
+  | ------------- | -------------- | ------------ |
+  | `articleId`   | `number`       | 文章ID       |
+  | `title`       | `string`       | 文章标题     |
+  | `desc`        | `string`       | 文章描述     |
+  | `coverImage`  | `coverImage{}` | 文章头图     |
+  | `tags`        | `string[]`     | 标签列表     |
+  | `createdTime` | `number`       | 文章创建时间 |
+
+- coverImage
+
+  | Field      | Type     | Description          |
+  | ---------- | -------- | -------------------- |
+  | `url`      | `string` | 头图url              |
+  | `mime`     | `string` | image/jpg, image/png |
+  | `filename` | `string` | 文件名               |
+
+#### 获取文章详情
+
+```http
+POST /api/blog/article/getArticleDetails
+```
+
+- 请求
+
+  | Field       | Type     | Description | Require |
+  | :---------- | :------- | :---------- | ------- |
+  | `articleId` | `number` | 文章ID      | `true`  |
+
+- 响应
+
+  | Field            | Type               | Description |
+  | ---------------- | ------------------ | ----------- |
+  | `articleDetails` | `articleDetails{}` | 文章详情    |
+
+- articleDetails
+
+  | Field         | Type           | Description          |
+  | ------------- | -------------- | -------------------- |
+  | `articleId`   | `number`       | 文章ID               |
+  | `title`       | `string`       | 文章标题             |
+  | `desc`        | `string`       | 文章描述             |
+  | `content`     | `string`       | 文章内容（markdown） |
+  | `coverImage`  | `coverImage{}` | 文章头图             |
+  | `tags`        | `string[]`     | 标签列表             |
+  | `createdTime` | `number`       | 文章创建时间         |
+  | `updatedTime` | `number`       | 文章最后更新时间     |
+
+- coverImage
+
+  | Field      | Type     | Description          |
+  | ---------- | -------- | -------------------- |
+  | `url`      | `string` | 头图url              |
+  | `mime`     | `string` | image/jpg, image/png |
+  | `filename` | `string` | 文件名               |
+
+#### 搜索文章
+
+```http
+POST /api/blog/article/searchArticle
+```
+
+- 请求
+  | Field     | Type     | Description                      | Require |
+  | --------- | -------- | -------------------------------- | ------- |
+  | `keyword` | `string` | 搜索关键字（接受标题和文章内容） | `true`  |
+
+- 响应
+
+  | Field      | Type        | Description |
+  | ---------- | ----------- | ----------- |
+  | `articles` | `article[]` | 文章列表    |
+
+- article
+
+  | Field         | Type           | Description  |
+  | ------------- | -------------- | ------------ |
+  | `articleId`   | `number`       | 文章ID       |
+  | `title`       | `string`       | 文章标题     |
+  | `desc`        | `string`       | 文章描述     |
+  | `coverImage`  | `coverImage{}` | 文章头图     |
+  | `tags`        | `string[]`     | 标签列表     |
+  | `createdTime` | `number`       | 文章创建时间 |
+
+#### 获取标签列表
+
+```http
+POST /api/blog/article/listArticleTags
+```
+
+- 请求
+  | Field    | Type     | Description            | Require |
+  | :------- | :------- | :--------------------- | ------- |
+  | `offset` | `number` | 分页偏移量             | `true`  |
+  | `size`   | `number` | 期望分页查询记录的数量 | `true`  |
+
+- 响应
+
+  | Field        | Type     | Description |
+  | ------------ | -------- | ----------- |
+  | `tags`       | `tag[]`  | 标签列表    |
+  | `totalCount` | `number` | 文章总数    |
+
+- tag
+  
+  | Field               | Type     | Description      |
+  | ------------------- | -------- | ---------------- |
+  | `tagId`             | `number` | 标签ID           |
+  | `name`              | `number` | 标签名称         |
+  | `articleTotalCount` | `number` | 标签下的文章数量 |
+
+#### 获取友链列表
+
+```http
+POST /api/blog/friend/listFriends
+```
+
+- 请求
+  | Field    | Type     | Description            | Require |
+  | :------- | :------- | :--------------------- | ------- |
+  | `offset` | `number` | 分页偏移量             | `true`  |
+  | `size`   | `number` | 期望分页查询记录的数量 | `true`  |
+
+- 响应
+  | Field        | Type       | Description |
+  | ------------ | ---------- | ----------- |
+  | `friends`    | `friend[]` | 友链列表    |
+  | `totalCount` | `number`   | 友链总数    |
+
+- friend
+  
+  | Field       | Type     | Description  |
+  | ----------- | -------- | ------------ |
+  | `friendId`  | `number` | 友链ID       |
+  | `name`      | `string` | 友链博客名称 |
+  | `link`      | `string` | 友链url      |
+  | `avatarUrl` | `string` | 友链图标url  |
+  | `desc`      | `string` | 友链简述     |
