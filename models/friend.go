@@ -8,5 +8,4 @@ type Friend struct {
 	Link      string `gorm:"type:VARCHAR(255) NOT NULL"`
 	AvatarURL string `gorm:"type:VARCHAR(255) NOT NULL"`
 	Desc      string `gorm:"type:VARCHAR(255)"`
-	State     uint   `gorm:"type:TINYINT UNSIGNED;default:0"`
 }
