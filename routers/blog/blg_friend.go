@@ -6,13 +6,9 @@ type FriendRouter struct {
 
 }
 
-func (f *FriendRouter) InitFriendRouter() *gin.Engine{
-	router := gin.New()
-
-	blogApi := router.Group("api/blog/friend")
+func (f *FriendRouter) InitFriendRouter(Router *gin.RouterGroup) {
+	blogApi := Router.Group("api/blog/friend")
 	{
 		blogApi.POST("/listFriend")
 	}
-
-	return router
 }

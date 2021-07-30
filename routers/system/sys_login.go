@@ -6,13 +6,9 @@ type LoginRouter struct {
 
 }
 
-func (s *LoginRouter)InitLoginRouter() *gin.Engine {
-	router := gin.New()
-
-	systemApi := router.Group("api/system/login")
+func (s *LoginRouter)InitLoginRouter(Router *gin.RouterGroup) {
+	systemApi := Router.Group("api/system/login")
 	{
 		systemApi.POST("/auth/login")
 	}
-
-	return router
 }

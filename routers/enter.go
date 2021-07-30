@@ -5,7 +5,9 @@ import (
 	"blogo/routers/system"
 )
 
-type Server struct {
+type RouterGroup struct {
 	System			system.RouterGroup
 	Blog			blog.RouterGroup
 }
+
+var RouterGroupApp = new(RouterGroup)

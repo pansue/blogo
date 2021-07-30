@@ -6,15 +6,11 @@ type FriendRouter struct {
 
 }
 
-func (s *FriendRouter)InitFriendRouter() *gin.Engine {
-	router := gin.New()
-
-	systemApi := router.Group("api/system/friend")
+func (s *FriendRouter)InitFriendRouter(Router *gin.RouterGroup) {
+	systemApi := Router.Group("api/system/friend")
 	{
 		systemApi.POST("/listFriends")
 		systemApi.POST("/addFriends")
 		systemApi.POST("/deleteFriend")
 	}
-
-	return router
 }

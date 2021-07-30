@@ -6,10 +6,8 @@ type ArticleRouter struct {
 
 }
 
-func (s *ArticleRouter) InitArticleRouter() *gin.Engine{
-	router := gin.New()
-
-	systemApi := router.Group("api/system/article")
+func (s *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup){
+	systemApi := Router.Group("api/system/article")
 	{
 		systemApi.POST("/listArticles")
 		systemApi.POST("/getArticleDetails")
@@ -20,6 +18,4 @@ func (s *ArticleRouter) InitArticleRouter() *gin.Engine{
 		systemApi.POST("/recoverArticle")
 		systemApi.POST("/listArticleTags")
 	}
-
-	return router
 }
