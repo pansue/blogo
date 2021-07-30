@@ -11,9 +11,9 @@ func (s *FriendRouter)InitFriendRouter() *gin.Engine {
 
 	systemApi := router.Group("api/system/friend")
 	{
-		systemApi.POST("/friend/listFriends")
-		systemApi.POST("/friend/addFriends")
-		systemApi.POST("/friend/deleteFriend")
+		systemApi.POST("/listFriends")
+		systemApi.POST("/addFriends")
+		systemApi.POST("/deleteFriend")
 	}
 
 	return router

@@ -11,7 +11,7 @@ func (f *FriendRouter) InitFriendRouter() *gin.Engine{
 
 	blogApi := router.Group("api/blog/friend")
 	{
-		blogApi.POST("listFriend")
+		blogApi.POST("/listFriend")
 	}
 
 	return router

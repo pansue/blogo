@@ -12,10 +12,10 @@ func (s *ArticleRouter)InitArticleRouter() *gin.Engine {
 
 	blogApi := router.Group("api/blog/article")
 	{
-		blogApi.POST("listArticles")
-		blogApi.POST("ArticleDetails")
-		blogApi.POST("searchArticle")
-		blogApi.POST("listArticleTags")
+		blogApi.POST("/listArticles")
+		blogApi.POST("/ArticleDetails")
+		blogApi.POST("/searchArticle")
+		blogApi.POST("/listArticleTags")
 	}
 
 	return router

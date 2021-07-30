@@ -11,14 +11,14 @@ func (s *ArticleRouter) InitArticleRouter() *gin.Engine{
 
 	systemApi := router.Group("api/system/article")
 	{
-		systemApi.POST("/article/listArticles")
-		systemApi.POST("/article/getArticleDetails")
-		systemApi.POST("/article/searchArticle")
-		systemApi.POST("/article/saveArticle")
-		systemApi.POST("/article/publishArticle")
-		systemApi.POST("/article/updateArticle")
-		systemApi.POST("/article/recoverArticle")
-		systemApi.POST("/article/listArticleTags")
+		systemApi.POST("/listArticles")
+		systemApi.POST("/getArticleDetails")
+		systemApi.POST("/searchArticle")
+		systemApi.POST("/saveArticle")
+		systemApi.POST("/publishArticle")
+		systemApi.POST("/updateArticle")
+		systemApi.POST("/recoverArticle")
+		systemApi.POST("/listArticleTags")
 	}
 
 	return router
