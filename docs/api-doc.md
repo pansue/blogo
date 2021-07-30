@@ -306,6 +306,23 @@ POST /api/system/friend/listFriends
   | `avatarUrl` | `string` | 友链图标url  |
   | `desc`      | `string` | 友链简述     |
 
+#### 添加友链
+
+```http
+POST /api/system/friend/addFriend 
+```
+- friend
+
+  | Field       | Type     | Description  |
+    | ----------- | -------- | ------------ |
+  | `friendId`  | `number` | 友链ID       |
+  | `name`      | `string` | 友链博客名称 |
+  | `link`      | `string` | 友链url      |
+  | `avatarUrl` | `string` | 友链图标url  |
+  | `desc`      | `string` | 友链简述     |
+
+- 无响应
+
 #### 删除友链
 
 ```http
