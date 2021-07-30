@@ -2,18 +2,20 @@ package blog
 
 import "github.com/gin-gonic/gin"
 
-// InitBlogRouter initialize blog routing
-func InitBlogRouter() *gin.Engine {
+type ArticleRouter struct {
+
+}
+
+// InitArticleRouter initialize blog routing
+func (s *ArticleRouter)InitArticleRouter() *gin.Engine {
 	router := gin.New()
 
-	blogApi := router.Group("api/blog")
+	blogApi := router.Group("api/blog/article")
 	{
-		blogApi.POST("article/listArticles")
-		blogApi.POST("article/getArticleDetails")
-		blogApi.POST("article/searchArticle")
-		blogApi.POST("article/listArticleTags")
-
-		blogApi.POST("friend/listFriends")
+		blogApi.POST("listArticles")
+		blogApi.POST("ArticleDetails")
+		blogApi.POST("searchArticle")
+		blogApi.POST("listArticleTags")
 	}
 
 	return router

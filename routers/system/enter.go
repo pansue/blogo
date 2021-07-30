@@ -1,7 +1,7 @@
-package api
-
-import "blogo/routers/system"
+package system
 
 type RouterGroup struct {
-	ApiRouter
+	ArticleRouter
+	FriendRouter
+	LoginRouter
 }
