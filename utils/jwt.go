@@ -1,44 +1,41 @@
 package utils
 
 import (
+	"blogo/global"
+	"blogo/models"
 	"errors"
-	"time"
-
 	"github.com/dgrijalva/jwt-go"
+	"time"
 )
 
-type Claims struct {
-	UserName string
-	jwt.StandardClaims
-}
+var jwtSecret = []byte(global.CONF.Jwt.Secret) // jwtSecret
 
-var jwtSecret = []byte("vrJ7oc1jMntcWYFe") // jwtSecret，这个建议复杂一点
-
-func getToken() (string, error) { //生成Token，返回Encoded jwt
-	expireTime := time.Now().Add(14 * 24 * time.Hour) // 设置14天的过期时间
-	claims := &Claims{                                // jwt参数
-		UserName: "root", //用户名
+func GetToken(userID int, userName string) (string, error) { // 生成Token，返回Encoded jwt
+	expireTime := time.Now().Add(time.Duration(global.CONF.Jwt.ExpireTime) * time.Second)
+	claims := &models.Claims{
+		UserID:   userID,
+		UserName: userName,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expireTime.Unix(), //过期时间
-			Issuer:    "blogo",           // 签名颁发者
+			ExpiresAt: expireTime.Unix(), // 过期时间
+			Issuer:    "blogo",
 		},
 	}
-	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtSecret) //设置secret
+	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtSecret)
 	if err != nil {
-		return "ERROR", err //错误：返回ERROR和错误信息
+		return "ERROR", err
 	}
-	return token, nil //成功：返回Encoded jwt和nil
+	return token, nil
 }
 
-func verifyToken(tokenString string) (string, error) { //验证Token，接收一个Encoded jwt，返回UserName
+func VerifyToken(tokenString string) (string, error) { //验证Token，接收一个Encoded jwt，返回UserName
 	if tokenString == "" {
 		return "ERROR", errors.New("tokenString is empty")
 	}
-	claims := &Claims{}
+	claims := &models.Claims{}
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
 		return jwtSecret, nil
 	})
-	if err != nil || !token.Valid { // 验证此token时候过期
+	if err != nil || !token.Valid {
 		return "ERROR", err
 	}
 	return claims.UserName, nil
@@ -49,7 +46,7 @@ Use example
 func yourfunc() {
 	r := gin.Default()
 	r.GET("/get", func(c *gin.Context) {
-        token, err := getToken()
+        token, err := getToken(123, "root")
         if err != nil {
             c.JSON(401, gin.H{
                 "Error": "获取Token失败",
