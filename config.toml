@@ -6,3 +6,6 @@ host = "localhost:3306"
 charset = "utf8mb4"
 max-idle-connections = 10
 max-open-connections = 100
+[jwt]
+secret = "vrJ7oc1jMntcWYFe"
+expire-time = 604800
