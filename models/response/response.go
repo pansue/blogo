@@ -1,8 +1,9 @@
-package global
+package response
 
 import "github.com/gin-gonic/gin"
 
-type Gin struct {
+// GinContextE 是对Gin.Context 的扩展
+type GinContextE struct {
 	C *gin.Context
 }
 
@@ -12,8 +13,7 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-// Response setting gin.JSON
-func (g *Gin) Response(httpCode, errCode int, msg string, data interface{}) {
+func (g GinContextE) Response(httpCode, errCode int, msg string, data interface{}) {
 	g.C.JSON(httpCode, Response{
 		Code: errCode,
 		Msg:  msg,
