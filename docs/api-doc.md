@@ -42,11 +42,11 @@ POST /api/system/auth/login
 
 - 响应
 
-  | Field          | Type     | Description              |
-  | -------------- | -------- | ------------------------ |
+  | Field         | Type     | Description              |
+  | ------------- | -------- | ------------------------ |
   | `accessToken` | `string` | jwt令牌                  |
   | `expiryTime`  | `number` | 令牌过期时间，unix时间戳 |
-  | `user`         | `object` | 账号信息（待定）         |
+  | `user`        | `object` | 账号信息（待定）         |
 
 - 错误信息
   
@@ -172,6 +172,8 @@ POST /api/system/article/searchArticle
 POST /api/system/article/saveArticle
 ```
 
+保存文章为草稿，草稿除标题字段必填其他字段都可选填
+
 - 请求
 
   | Field        | Type           | Description | Require |
@@ -180,6 +182,7 @@ POST /api/system/article/saveArticle
   | `coverImage` | `coverImage{}` | 文章头图    | `false` |
   | `desc`       | `string`       | 文章描述    | `false` |
   | `content`    | `string`       | 文章内容    | `false` |
+  | `tags`       | `string[]`     | 文章标签    | `false` |
 
 - 无响应
   
@@ -197,6 +200,8 @@ POST /api/system/article/saveArticle
 POST /api/system/article/publishArticle
 ```
 
+发布文章时检测文章是否所有必备字段都不为空，若有空字段响应发布失败错误
+
 - 请求
   
   | Field       | Type     | Description | Require |
@@ -211,14 +216,28 @@ POST /api/system/article/publishArticle
 POST /api/system/article/updateArticle
 ```
 
+若文章处于删除状态则不可编辑
+
 - 请求
 
-  | Field       | Type      | Description | Require |
-  | ----------- | --------- | ----------- | ------- |
-  | `articleId` | `number`  | 文章ID      | `true`  |
-  | `article`   | `article` | 文章详情    | `true`  |
+  | Field        | Type           | Description | Require |
+  | ------------ | -------------- | ----------- | ------- |
+  | `articleId`  | `number`       | 文章ID      | `true`  |
+  | `title`      | `string`       | 文章标题    | `true`  |
+  | `coverImage` | `coverImage{}` | 文章头图    | `false` |
+  | `desc`       | `string`       | 文章描述    | `false` |
+  | `content`    | `string`       | 文章内容    | `false` |
+  | `tags`       | `string[]`     | 文章标签    | `false` |
 
 - 无响应
+
+- coverImage
+
+  | Field      | Type     | Description               | Require |
+  | ---------- | -------- | ------------------------- | ------- |
+  | `image`    | `string` | 图片base64                | `true`  |
+  | `mime`     | `string` | only image/jpg, image/png | `true`  |
+  | `filename` | `string` | 文件名                    | `true`  |
 
 #### 删除文章
 
@@ -239,6 +258,8 @@ POST /api/system/article/deleteArticle
 ```http
 POST /api/system/article/recoverArticle
 ```
+
+将文章从删除状态恢复为草稿状态
 
 - 请求
   
@@ -311,10 +332,11 @@ POST /api/system/friend/listFriends
 ```http
 POST /api/system/friend/addFriend 
 ```
+
 - friend
 
   | Field       | Type     | Description  |
-    | ----------- | -------- | ------------ |
+  | ----------- | -------- | ------------ |
   | `friendId`  | `number` | 友链ID       |
   | `name`      | `string` | 友链博客名称 |
   | `link`      | `string` | 友链url      |
@@ -445,6 +467,14 @@ POST /api/blog/article/searchArticle
   | `coverImage`  | `coverImage{}` | 文章头图     |
   | `tags`        | `string[]`     | 标签列表     |
   | `createdTime` | `number`       | 文章创建时间 |
+
+- coverImage
+
+  | Field      | Type     | Description          |
+  | ---------- | -------- | -------------------- |
+  | `url`      | `string` | 头图url              |
+  | `mime`     | `string` | image/jpg, image/png |
+  | `filename` | `string` | 文件名               |
 
 #### 获取标签列表
 
