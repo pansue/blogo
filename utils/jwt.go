@@ -10,7 +10,7 @@ import (
 
 var jwtSecret = []byte(global.CONF.Jwt.Secret) // jwtSecret
 
-func GetToken(userID int, userName string) (string, error) { // 生成Token，返回Encoded jwt
+func GetToken(userID int, userName string) (string, int64, error) { // 生成Token，返回Encoded jwt，和过期时间
 	expireTime := time.Now().Add(time.Duration(global.CONF.Jwt.ExpireTime) * time.Second)
 	claims := &models.Claims{
 		UserID:   userID,
@@ -22,9 +22,9 @@ func GetToken(userID int, userName string) (string, error) { // 生成Token，�
 	}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtSecret)
 	if err != nil {
-		return "ERROR", err
+		return "ERROR", -1, err
 	}
-	return token, nil
+	return token, expireTime.Unix(), nil
 }
 
 func VerifyToken(tokenString string) (int, string, error) { //验证Token，接收一个Encoded jwt，返回UserID和UserName
