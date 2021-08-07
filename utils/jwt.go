@@ -3,7 +3,6 @@ package utils
 import (
 	"blogo/global"
 	"blogo/models"
-	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
@@ -22,21 +21,18 @@ func GetToken(userID int, userName string) (string, int64, error) { // 生成Tok
 	}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtSecret)
 	if err != nil {
-		return "ERROR", -1, err
+		return "", 0, err
 	}
 	return token, expireTime.Unix(), nil
 }
 
 func VerifyToken(tokenString string) (int, string, error) { //验证Token，接收一个Encoded jwt，返回UserID和UserName
-	if tokenString == "" {
-		return -1, "ERROR", errors.New("tokenString is empty")
-	}
 	claims := &models.Claims{}
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
 		return jwtSecret, nil
 	})
 	if err != nil || !token.Valid {
-		return -1, "ERROR", err
+		return 0, "", err
 	}
 	return claims.UserID, claims.UserName, nil
 }
