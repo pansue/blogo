@@ -12,7 +12,7 @@ var jwtSecret = []byte(global.CONF.Jwt.Secret) // jwtSecret
 func GetToken(userID int, userName string) (string, int64, error) { // 生成Token，返回Encoded jwt，和过期时间
 	expireTime := time.Now().Add(time.Duration(global.CONF.Jwt.ExpireTime) * time.Second)
 	claims := &models.Claims{
-		UserID:   userID,
+		UserID:   userID, // FIXME: 无法取得UserID
 		UserName: userName,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(), // 过期时间

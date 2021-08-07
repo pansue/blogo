@@ -22,7 +22,7 @@ func (b *LoginApi) Login(c *response.GinContextE) {
 		c.FailWithMessage(response.API_ERROR, "账号或密码错误")
 		return
 	}
-	accessToken, expireTime, err := utils.GetToken(123, loginInfo.Username)
+	accessToken, expireTime, err := utils.GetToken(0, loginInfo.Username) // FIXME: 无法取得UserID
 	if err != nil {
 		c.FailWithMessage(response.API_ERROR, "获取Token失败")
 		return
