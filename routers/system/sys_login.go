@@ -15,7 +15,7 @@ func (s *LoginRouter)InitLoginRouter(Router *gin.RouterGroup) {
 	systemApi := Router.Group("api/system/auth")
 	{
 		systemApi.POST("/login", func (c *gin.Context) {
-			api.ApiGroupApp.SystemApiGroup.LoginApi.Login(response.GinContextE{C: c})
+			api.ApiGroupApp.SystemApiGroup.LoginApi.Login(&response.GinContextE{C: c})
 		})
 	}
 }

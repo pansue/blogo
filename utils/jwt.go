@@ -20,21 +20,18 @@ func GetToken(userID int, userName string) (string, int64, error) { // 生成Tok
 		},
 	}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtSecret)
-	if err != nil {
-		return "", 0, err
-	}
-	return token, expireTime.Unix(), nil
+	return token, expireTime.Unix(), err
 }
 
-func VerifyToken(tokenString string) (int, string, error) { //验证Token，接收一个Encoded jwt，返回UserID和UserName
+func VerifyToken(tokenString string) (*models.Claims, error) { //验证Token，接收一个Encoded jwt，返回UserID和UserName
 	claims := &models.Claims{}
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
 		return jwtSecret, nil
 	})
 	if err != nil || !token.Valid {
-		return 0, "", err
+		return nil, err
 	}
-	return claims.UserID, claims.UserName, nil
+	return claims, nil
 }
 
 /*
